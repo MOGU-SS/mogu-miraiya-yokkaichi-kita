@@ -74,7 +74,7 @@
         }
     </style>
 </head>
-<body>
+<body></body>
     <h1>MOGUビーズクッション 書店限定オファー</h1>
     <p id="storeName"></p>
     <div id="couponSection">
@@ -84,19 +84,15 @@
         <a id="shopLink" href="#" class="btn">ECサイトで使用する</a>
     </div>
 
-    <footer>
-        <a href="#" id="privacyLink">プライバシーポリシー</a> | 
-        <a href="#" id="termsLink">利用規約</a>
-    </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const STORE_CODE = "001"; // 書店コード
             const STORE_NAME = "未来屋書店四日市北店"; // 店舗名
             const COUPON_PREFIX = "MOGUBOOK"; // クーポンプレフィックス
 
+            // URLパラメータを全て取得
             const urlParams = new URLSearchParams(window.location.search);
-            const advc = urlParams.get('advc') || STORE_CODE;
+            const advc = urlParams.get('advc') || 'QR_BOOKSTORE_001';
 
             // クーポンコード生成（書店コードを含む）
             const couponCode = `${COUPON_PREFIX}${STORE_CODE}`;
@@ -106,11 +102,18 @@
             
             const shopLink = document.getElementById('shopLink');
             const ecSiteUrl = 'https://tt117.win-win.partners/Test/P0113_Mogu/';
-            shopLink.href = `${ecSiteUrl}?advc=${encodeURIComponent(advc)}&coupon=${encodeURIComponent(couponCode)}`;
+            
+            // 全てのURLパラメータを保持したまま新しいURLを構築
+            let ecSiteFullUrl = new URL(ecSiteUrl);
+            for (let [key, value] of urlParams) {
+                ecSiteFullUrl.searchParams.append(key, value);
+            }
+            ecSiteFullUrl.searchParams.set('coupon', couponCode); // クーポンコードを追加または上書き
+
+            shopLink.href = ecSiteFullUrl.toString();
             
             console.log('Coupon displayed:', couponCode, 'for store:', STORE_NAME);
-            
-            // ここにGoogle Analyticsなどのトラッキングコードを追加可能
+            console.log('Full EC site URL:', ecSiteFullUrl.toString());
         });
     </script>
 </body>
