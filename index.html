@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOGUビーズクッション 書店限定オファー</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        #storeName {
+            font-weight: bold;
+            color: #34495e;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        #couponSection {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #couponCode {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 20px 0;
+            padding: 10px;
+            border: 2px dashed #e74c3c;
+            display: inline-block;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .warning {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>MOGUビーズクッション 書店限定オファー</h1>
+    <p id="storeName"></p>
+    <div id="couponSection">
+        <p>以下のクーポンコードでお得にお買い物！</p>
+        <p id="couponCode"></p>
+        <p class="warning">※このクーポンコードは一回限りの使用となります。</p>
+        <a id="shopLink" href="#" class="btn">ECサイトで使用する</a>
+    </div>
+
+    <footer>
+        <a href="#" id="privacyLink">プライバシーポリシー</a> | 
+        <a href="#" id="termsLink">利用規約</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const STORE_CODE = "001"; // 書店コード
+            const STORE_NAME = "未来屋書店四日市北店"; // 店舗名
+            const COUPON_PREFIX = "MOGUBOOK"; // クーポンプレフィックス
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const advc = urlParams.get('advc') || STORE_CODE;
+
+            // クーポンコード生成（書店コードを含む）
+            const couponCode = `${COUPON_PREFIX}${STORE_CODE}`;
+
+            document.getElementById('storeName').textContent = STORE_NAME;
+            document.getElementById('couponCode').textContent = couponCode;
+            
+            const shopLink = document.getElementById('shopLink');
+            const ecSiteUrl = 'https://tt117.win-win.partners/Test/P0113_Mogu/';
+            shopLink.href = `${ecSiteUrl}?advc=${encodeURIComponent(advc)}&coupon=${encodeURIComponent(couponCode)}`;
+            
+            console.log('Coupon displayed:', couponCode, 'for store:', STORE_NAME);
+            
+            // ここにGoogle Analyticsなどのトラッキングコードを追加可能
+        });
+    </script>
+</body>
+</html>
