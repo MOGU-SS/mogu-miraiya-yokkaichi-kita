@@ -292,6 +292,15 @@
                 const apiUrl = 'http://localhost:5000/get_coupon';
                 
                 fetch(apiUrl)
+
+                    method: 'POST',  // POSTメソッドに変更
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({  // リクエストボディを追加
+                        email: emailInput.value
+                    })
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.error) {
