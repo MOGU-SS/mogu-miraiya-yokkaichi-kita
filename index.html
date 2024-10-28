@@ -291,18 +291,17 @@
                 // 既存のAPIエンドポイントを使用
                 const apiUrl = 'http://localhost:5000/get_coupon';
                 
-                fetch(apiUrl)
-
-                    method: 'POST',  // POSTメソッドに変更
+                fetch(apiUrl, { 
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({  // リクエストボディを追加
+                    body: JSON.stringify({
                         email: emailInput.value
                     })
                 })
-                    .then(response => response.json())
-                    .then(data => {
+                .then(response => response.json())
+                .then(data => {
                         if (data.error) {
                             emailError.textContent = data.error;
                             document.getElementById('couponCode').textContent = '';
@@ -320,15 +319,15 @@
                             shopLink.href = ecSiteFullUrl.toString();
                         }
                     })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        emailError.textContent = 'クーポンの取得中にエラーが発生しました。';
-                    })
-                    .finally(() => {
-                        getCouponBtn.disabled = false;
-                        loadingSpinner.style.display = 'none';
-                    });
-            });
+                .catch(error => {
+                    console.error('Error:', error);
+                    emailError.textContent = 'クーポンの取得中にエラーが発生しました。';
+                })
+                .finally(() => {
+                    getCouponBtn.disabled = false;
+                    loadingSpinner.style.display = 'none';
+                });
+                });
 
             // クーポンコードのコピー機能
             const couponCodeElement = document.getElementById('couponCode');
