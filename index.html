@@ -276,6 +276,9 @@
             const loadingSpinner = getCouponBtn.querySelector('.loading');
             const couponSection = document.getElementById('couponSection');
             
+            // 初期状態ではクーポンセクションを非表示に
+            couponSection.style.display = 'none';
+            
             getCouponBtn.addEventListener('click', function() {
                 if (!emailInput.value) {
                     emailError.textContent = 'メールアドレスを入力してください。';
@@ -302,26 +305,27 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                        if (data.error) {
-                            emailError.textContent = data.error;
-                            document.getElementById('couponCode').textContent = '';
-                            couponSection.style.display = 'none';
-                        } else {
-                            document.getElementById('couponCode').textContent = data.coupon_code;
-                            emailSuccess.textContent = 'クーポンコードを発行しました。';
-                            couponSection.style.display = 'block';
-                            
-                            let ecSiteFullUrl = new URL(ecSiteUrl);
-                            for (let [key, value] of urlParams) {
-                                ecSiteFullUrl.searchParams.append(key, value);
-                            }
-                            ecSiteFullUrl.searchParams.set('coupon', data.coupon_code);
-                            shopLink.href = ecSiteFullUrl.toString();
-                        }
-                    })
+                    if (data.error) {
+                        emailError.textContent = data.error;
+                        document.getElementById('couponCode').textContent = '';
+                        couponSection.style.display = 'none';
+                    } else {
+                        // success: true のケースを処理
+                        document.getElementById('couponCode').textContent = data.coupon_code || `${COUPON_PREFIX}${STORE_CODE}`;
+                        emailSuccess.textContent = 'クーポンコードを発行しました。メールでもお送りしました。';
+                        couponSection.style.display = 'block';
+                        
+                        let ecSiteFullUrl = new URL(ecSiteUrl);
+                        ecSiteFullUrl.searchParams.append('advc', advc);
+                        ecSiteFullUrl.searchParams.set('coupon', data.coupon_code || `${COUPON_PREFIX}${STORE_CODE}`);
+                        shopLink.href = ecSiteFullUrl.toString();
+                    }
+                })
                 .catch(error => {
                     console.error('Error:', error);
-                    emailError.textContent = 'クーポンの取得中にエラーが発生しました。';
+                    emailError.textContent = 'システムエラーが発生しました。時間をおいて再度お試しください。';
+                    getCouponBtn.disabled = false;
+                    loadingSpinner.style.display = 'none';
                 })
                 .finally(() => {
                     getCouponBtn.disabled = false;
