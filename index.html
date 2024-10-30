@@ -288,8 +288,8 @@
                 emailError.textContent = '';
                 emailSuccess.textContent = '';
 
-                // 既存のAPIエンドポイントを使用
-                const apiUrl = 'http://localhost:5000/get_coupon';
+                // 本番環境のAPIエンドポイント
+                const apiUrl = 'https://coupon-service-912450795580.asia-northeast1.run.app/get_coupon';
                 
                 fetch(apiUrl, { 
                     method: 'POST',
