@@ -186,6 +186,27 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        .usage-guide {
+            text-align: left;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .save-options {
+            margin: 20px 0;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        .expiry {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .screenshot-tip {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -193,33 +214,48 @@
     <p id="storeName"></p>
 
     <div class="card">
-        <div class="input-group">
-            <label for="email" class="input-label">メールアドレス</label>
-            <input 
-                type="email" 
-                id="email" 
-                class="input-field" 
-                placeholder="example@email.com"
-            >
-            <p class="notice">
-                ※メールアドレスを入力いただくと、クーポンコードをメールでもお送りします。<br>
-                ※お一人様1回限りとなります。
-            </p>
-        </div>
-
+        <!-- 最初はクーポン取得ボタンのみ表示 -->
         <button id="getCouponBtn" class="btn">
             <span class="loading"></span>
             クーポンを取得
         </button>
-        <p id="emailError" class="error-message"></p>
-        <p id="emailSuccess" class="success-message"></p>
+        
+        <!-- クーポン表示セクション -->
+        <div id="couponSection" style="display: none;">
+            <h3>クーポンを発行しました！</h3>
+            
+            <div class="coupon-display">
+                <p id="couponCode" title="タップでコピー"></p>
+                <p id="copyMessage">コピーしました！</p>
+            </div>
 
-        <div id="couponSection">
-            <p>以下のクーポンコードでお得にお買い物！</p>
-            <p id="couponCode" title="クリックしてコピー"></p>
-            <p id="copyMessage">コピーしました！</p>
-            <p class="warning">※このクーポンコードは一回限りの使用となります。</p>
-            <a id="shopLink" href="#" class="btn">ECサイトで使用する</a>
+            <div class="usage-guide">
+                <h4>クーポンの使い方</h4>
+                <ol>
+                    <li>クーポンコードをコピー（タップでコピーできます）</li>
+                    <li>ECサイトで商品を選択</li>
+                    <li>決済時にクーポンコードを入力</li>
+                </ol>
+                <p class="expiry">※有効期限：2024年12月27日まで</p>
+            </div>
+
+            <div class="save-options">
+                <h4>クーポンを保存</h4>
+                <div class="email-section">
+                    <p>メールでも受け取れます</p>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="example@email.com"
+                    >
+                    <button id="sendMailBtn">メールで受け取る</button>
+                    <p id="emailError" class="error-message"></p>
+                    <p id="emailSuccess" class="success-message"></p>
+                </div>
+                <p class="screenshot-tip">※スクリーンショットでの保存もおすすめです</p>
+            </div>
+
+            <a id="shopLink" class="btn primary-btn">ECサイトで使用する</a>
         </div>
     </div>
 
@@ -275,15 +311,11 @@
             const loadingSpinner = getCouponBtn.querySelector('.loading');
             const couponSection = document.getElementById('couponSection');
             
-            // 初期状態ではクーポンセクションを非表示に
-            couponSection.style.display = 'none';
-            
+            // クーポン取得処理
             getCouponBtn.addEventListener('click', function() {
                 getCouponBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
-                emailError.textContent = '';
-                emailSuccess.textContent = '';
-
+                
                 const apiUrl = 'https://coupon-service-912450795580.asia-northeast1.run.app/get_coupon';
                 
                 fetch(apiUrl, { 
@@ -291,26 +323,15 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        email: emailInput.value || null
-                    })
+                    body: JSON.stringify({})  // メールアドレスなしで送信
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
                         emailError.textContent = data.error;
-                        document.getElementById('couponCode').textContent = '';
-                        couponSection.style.display = 'none';
                     } else {
-                        // success: true のケースを処理
-                        document.getElementById('couponCode').textContent = data.coupon_code || `${COUPON_PREFIX}${STORE_CODE}`;
-                        emailSuccess.textContent = 'クーポンコードを発行しました。メールでもお送りしました。';
+                        document.getElementById('couponCode').textContent = data.coupon_code;
                         couponSection.style.display = 'block';
-                        
-                        let ecSiteFullUrl = new URL(ecSiteUrl);
-                        ecSiteFullUrl.searchParams.append('advc', advc);
-                        ecSiteFullUrl.searchParams.set('coupon', data.coupon_code || `${COUPON_PREFIX}${STORE_CODE}`);
-                        shopLink.href = ecSiteFullUrl.toString();
                     }
                 })
                 .catch(error => {
@@ -323,7 +344,48 @@
                     getCouponBtn.disabled = false;
                     loadingSpinner.style.display = 'none';
                 });
+            });
+
+            // メール送信処理
+            document.getElementById('sendMailBtn').addEventListener('click', function() {
+                const email = emailInput.value.trim();
+                if (!email) {
+                    emailError.textContent = 'メールアドレスを入力してください';
+                    return;
+                }
+                
+                // ボタンを無効化
+                this.disabled = true;
+                
+                // メール送信用のエンドポイントを使用
+                const mailApiUrl = 'https://coupon-service-912450795580.asia-northeast1.run.app/send_mail';
+                
+                fetch(mailApiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        coupon_code: document.getElementById('couponCode').textContent
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        emailError.textContent = data.error;
+                    } else {
+                        emailSuccess.textContent = 'メールを送信しました！';
+                        emailInput.value = ''; // 入力欄をクリア
+                    }
+                })
+                .catch(error => {
+                    emailError.textContent = 'メール送信に失敗しました。時間をおいて再度お試しください。';
+                })
+                .finally(() => {
+                    this.disabled = false;
                 });
+            });
 
             // クーポンコードのコピー機能
             const couponCodeElement = document.getElementById('couponCode');
