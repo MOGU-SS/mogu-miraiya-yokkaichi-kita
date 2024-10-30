@@ -236,7 +236,7 @@
                     <li>ECサイトで商品を選択</li>
                     <li>決済時にクーポンコードを入力</li>
                 </ol>
-                <p class="expiry">※有効期限：2024年12月27日まで</p>
+                <p class="expiry" id="expiryDate"></p>
             </div>
 
             <div class="save-options">
@@ -323,7 +323,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({})  // メールアドレスなしで送信
+                    body: JSON.stringify({})
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -331,6 +331,8 @@
                         emailError.textContent = data.error;
                     } else {
                         document.getElementById('couponCode').textContent = data.coupon_code;
+                        document.getElementById('expiryDate').textContent = `※有効期限：${data.expiry_date}まで`;
+                        window.currentExpiryDate = data.expiry_date;  // メール送信用に保存
                         couponSection.style.display = 'block';
                     }
                 })
@@ -367,7 +369,8 @@
                     },
                     body: JSON.stringify({
                         email: email,
-                        coupon_code: document.getElementById('couponCode').textContent
+                        coupon_code: document.getElementById('couponCode').textContent,
+                        expiry_date: window.currentExpiryDate
                     })
                 })
                 .then(response => response.json())
