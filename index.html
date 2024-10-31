@@ -331,6 +331,23 @@
             const loadingSpinner = getCouponBtn.querySelector('.loading');
             const couponSection = document.getElementById('couponSection');
             
+            // href属性を設定
+            shopLink.href = ecSiteUrl;
+
+            // デバッグログを追加
+            console.log('Shop Link Element:', shopLink);
+            console.log('EC Site URL:', ecSiteUrl);
+            console.log('Current href:', shopLink.href);
+
+            shopLink.addEventListener('click', function(e) {
+                e.preventDefault();  // デフォルトの動作を防止
+                console.log('Link Clicked');
+                console.log('Href value:', this.href);
+                
+                // リダイレクトを実行
+                window.location.href = ecSiteUrl;
+            });
+
             // クーポン取得処理
             getCouponBtn.addEventListener('click', function() {
                 getCouponBtn.disabled = true;
