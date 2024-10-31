@@ -331,13 +331,25 @@
             const loadingSpinner = getCouponBtn.querySelector('.loading');
             const couponSection = document.getElementById('couponSection');
             
+            // クーポン状態の確認
+            const storedCoupon = localStorage.getItem('moguCouponData');
+            if (storedCoupon) {
+                const couponData = JSON.parse(storedCoupon);
+                document.getElementById('couponCode').textContent = couponData.coupon_code;
+                document.getElementById('expiryDate').textContent = `※有効期限：${couponData.expiry_date}まで`;
+                window.currentExpiryDate = couponData.expiry_date;
+                couponSection.style.display = 'block';
+                getCouponBtn.style.display = 'none';
+                shopLink.href = `${ecSiteUrl}?advc=${advc}&utm_source=miraiya&utm_medium=qr&utm_campaign=miraiya-mogufloor&utm_content=yokkaichi-kita&coupon=${couponData.coupon_code}`;
+            }
+
             getCouponBtn.addEventListener('click', function() {
                 getCouponBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
                 
                 const apiUrl = 'https://coupon-service-912450795580.asia-northeast1.run.app/get_coupon';
                 
-                fetch(apiUrl, { 
+                fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -350,12 +362,16 @@
                         emailError.textContent = data.error;
                         getCouponBtn.disabled = false;
                     } else {
+                        // LocalStorageに保存
+                        localStorage.setItem('moguCouponData', JSON.stringify({
+                            coupon_code: data.coupon_code,
+                            expiry_date: data.expiry_date
+                        }));
+
                         document.getElementById('couponCode').textContent = data.coupon_code;
                         document.getElementById('expiryDate').textContent = `※有効期限：${data.expiry_date}まで`;
                         window.currentExpiryDate = data.expiry_date;
                         couponSection.style.display = 'block';
-                        
-                        // クーポン取得後はボタンを完全に非表示
                         getCouponBtn.style.display = 'none';
                         shopLink.href = `${ecSiteUrl}?advc=${advc}&utm_source=miraiya&utm_medium=qr&utm_campaign=miraiya-mogufloor&utm_content=yokkaichi-kita&coupon=${data.coupon_code}`;
                     }
