@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOGUビーズクッション 書店限定オファー</title>
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -9,164 +13,183 @@
     })(window,document,'script','dataLayer','GTM-PBQXWGCQ');</script>
     <!-- End Google Tag Manager -->
 
-    <!-- Google Analytics タグ -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZD0LFPTDFF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-ZD0LFPTDFF');
     </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOGUビーズクッション 書店限定オファー</title>
     <style>
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+        }
+        .header {
             text-align: center;
-            background-color: #f0f0f0;
+            margin-bottom: 30px;
         }
-        h1, h2 {
-            color: #2c3e50;
-        }
-        #storeName {
-            font-weight: bold;
-            color: #34495e;
-            font-size: 1.2em;
+        .logo {
+            max-width: 200px;
+            height: auto;
             margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .card {
-            background-color: #ffffff;
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .store-info {
+            font-size: 18px;
+            color: #666;
+        }
+        .offer-box {
+            background: #fff;
             border-radius: 12px;
             padding: 24px;
-            margin: 20px auto;  /* 中央寄せを確実に */
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            max-width: 500px;   /* 最大幅を設定 */
-            width: 100%;        /* レスポンシブ対応 */
-            box-sizing: border-box;  /* パディングを幅に含める */
+            margin-bottom: 30px;
         }
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
+        .subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
         }
-        .input-label {
+        .discount {
+            font-size: 48px;
+            font-weight: bold;
+            color: #e60012;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #2c3e50;
+            width: 100%;
+            padding: 15px;
+            background: #00a960;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            margin: 15px 0;
+            transition: background 0.3s;
+            box-sizing: border-box;
         }
-        .input-field {
+        .button:hover {
+            background: #008c4f;
+        }
+        .button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        #couponSection {
+            display: none;
+        }
+        #couponCode {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e60012;
+            padding: 15px;
+            border: 2px dashed #e60012;
+            border-radius: 8px;
+            margin: 20px 0;
+            cursor: pointer;
+            text-align: center;
+        }
+        #copyMessage {
+            color: #00a960;
+            font-size: 14px;
+            margin: 10px 0;
+            display: none;
+            text-align: center;
+        }
+        .benefit {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .benefit-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .email-section {
+            margin: 20px 0;
+        }
+        .email-section input {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 8px;
+            margin: 10px 0;
             box-sizing: border-box;
-        }
-        .input-field:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
-        }
-        #couponSection {
-            margin-top: 20px;
-            width: 100%;        /* 幅を100%に */
-            box-sizing: border-box;
-        }
-        #couponCode {
-            font-size: 28px;
-            font-weight: bold;
-            color: #e74c3c;
-            margin: 20px 0;
-            padding: 10px;
-            border: 2px dashed #e74c3c;
-            display: inline-block;
-            cursor: pointer;
-        }
-        #shopLink {
-            width: 100%;
-            margin: 20px 0;
-            display: block;
-        }
-        #copyMessage {
-            display: none;
-            color: #27ae60;
-            margin-top: 10px;
-        }
-        .btn {
-            display: block;     /* インラインブロックからブロックに変更 */
-            width: 100%;        /* 幅を100%に */
-            box-sizing: border-box;  /* パディングを幅に含める */
-            padding: 12px 24px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            margin: 20px 0;     /* マージンを上下のみに */
-            font-weight: bold;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            text-align: center;  /* テキストを中央寄せ */
-        }
-        .btn:hover {
-            background-color: #2980b9;
-        }
-        .btn:disabled {
-            background-color: #bdc3c7;
-            cursor: not-allowed;
-        }
-        #getCouponBtn {
-            background-color: #2ecc71;
-            margin-bottom: 20px;
-        }
-        #getCouponBtn:hover {
-            background-color: #27ae60;
         }
         .error-message {
-            color: #e74c3c;
+            color: #e60012;
             font-size: 14px;
-            margin-top: 8px;
         }
         .success-message {
-            color: #27ae60;
+            color: #00a960;
             font-size: 14px;
-            margin-top: 8px;
         }
-        .warning {
-            color: #e74c3c;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-        .notice {
+        .terms {
             font-size: 12px;
             color: #666;
-            margin-top: 8px;
+            line-height: 1.6;
+            margin-top: 20px;
         }
-        footer {
+        .footer-links {
+            text-align: center;
             margin-top: 30px;
-            font-size: 0.8em;
-            color: #7f8c8d;
         }
-        footer a {
-            color: #3498db;
+        .footer-links a {
+            color: #0066cc;
             text-decoration: none;
+            margin: 0 10px;
+            font-size: 14px;
+            cursor: pointer;
         }
-        footer a:hover {
+        .footer-links a:hover {
             text-decoration: underline;
+        }
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
@@ -190,40 +213,11 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .loading {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .usage-guide {
-            text-align: left;
-            margin: 20px 0;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-        .save-options {
-            margin: 20px 0;
-            padding: 15px;
-            border-top: 1px solid #eee;
-        }
-        .expiry {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .screenshot-tip {
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 10px;
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -233,71 +227,62 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <h1>MOGUビーズクッション 書店限定オファー</h1>
-    <p id="storeName"></p>
+    <div class="container">
+        <div class="header">
+            <img src="./images/MOGUrogo.png" alt="MOGUロゴ" class="logo" />
+            <div class="title">MOGUビーズクッション<br>書店限定オファー</div>
+            <div class="store-info" id="storeName"></div>
+        </div>
 
-    <div class="card">
-        <!-- 最初はクーポン取得ボタンのみ表示 -->
-        <button id="getCouponBtn" class="btn">
-            <span class="loading"></span>
-            クーポンを取得
-        </button>
-        
-        <!-- クーポン表示セクション -->
-        <div id="couponSection" style="display: none;">
-            <h3>クーポンを発行しました！</h3>
+        <div class="offer-box">
+            <div class="subtitle">書店でご覧のお客様限定</div>
+            <div class="discount">5%OFF</div>
+            <div class="subtitle">オンラインストアで使える<br>スペシャルクーポン</div>
             
-            <div class="coupon-display">
-                <p id="couponCode" title="タップでコピー"></p>
-                <p id="copyMessage">コピーしました！</p>
-            </div>
+            <button id="getCouponBtn" class="button">
+                <span class="loading"></span>
+                クーポンを取得
+            </button>
 
-            <div class="usage-guide">
-                <h4>クーポンの使い方</h4>
-                <ol>
-                    <li>クーポンコードをコピー（タップでコピーできます）</li>
-                    <li>ECサイトで商品を選択</li>
-                    <li>決済時にクーポンコードを入力</li>
-                </ol>
-                <p class="expiry" id="expiryDate"></p>
-            </div>
+            <div id="couponSection">
+                <div class="benefit">
+                    <div class="benefit-title">🎫 あなたのクーポンコード</div>
+                    <p id="couponCode" title="タップでコピー"></p>
+                    <p id="copyMessage">コピーしました！</p>
+                    <p id="expiryDate" class="terms"></p>
+                </div>
 
-            <div class="save-options">
-                <h4>クーポンを保存</h4>
                 <div class="email-section">
-                    <p>メールでも受け取れます</p>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        placeholder="example@email.com"
-                    >
-                    <button id="sendMailBtn">メールで受け取る</button>
+                    <div class="benefit-title">📧 メールでも受け取れます</div>
+                    <input type="email" id="email" placeholder="メールアドレスを入力">
+                    <button id="sendMailBtn" class="button">メールで受け取る</button>
                     <p id="emailError" class="error-message"></p>
                     <p id="emailSuccess" class="success-message"></p>
-                    
-                    <!-- メールに関する注意事項を追加 -->
-                    <div class="notice">
-                        <p>■メールが届かない場合</p>
-                        <ul style="text-align: left;">
-                            <li>迷惑メールフォルダをご確認ください</li>
-                            <li>ドメイン指定受信を設定されている場合は「mogu.miraiya@gmail.com」を許可リストに追加してください</li>
-                            <li>上記で解決しない場合は、画面に表示されているクーポンコードをご利用ください</li>
-                        </ul>
-                    </div>
                 </div>
-                <p class="screenshot-tip">※スクリーンショットでの保存もおすすめです</p>
+
+                <a id="shopLink" class="button">ECサイトで使用する</a>
             </div>
 
-            <a id="shopLink" class="btn primary-btn">ECサイトで使用する</a>
+            <div class="benefit">
+                <div class="benefit-title">📱 簡単3ステップでお得に購入</div>
+                1. クーポンを取得<br>
+                2. オンラインストアで商品を選択<br>
+                3. 購入時にクーポンコードを入力
+            </div>
+            
+            <div class="terms">
+                ※クーポンは1回限り有効です<br>
+                ※他のクーポンとの併用はできません<br>
+                ※一部対象外の商品がございます
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="#" id="privacyLink">プライバシーポリシー</a>
+            <a href="#" id="termsLink">利用規約</a>
         </div>
     </div>
 
-    <footer>
-        <a href="#" id="privacyLink">プライバシーポリシー</a> | 
-        <a href="#" id="termsLink">利用規約</a>
-    </footer>
-
-    <!-- モーダル部分は変更なし -->
     <div id="privacyModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -330,12 +315,14 @@
             const COUPON_PREFIX = "MOGUBOOK";
 
             const urlParams = new URLSearchParams(window.location.search);
-            const advc = urlParams.get('advc') || 'QR_BOOKSTORE_001';
+            const advc = urlParams.get('advc') || 'QR_MIRAIYA_YOKKAICHI_KITA';
 
             document.getElementById('storeName').textContent = STORE_NAME;
             
             const shopLink = document.getElementById('shopLink');
             const ecSiteUrl = 'https://mogustore.jp/';
+            
+            shopLink.href = `${ecSiteUrl}?advc=${advc}&utm_source=miraiya&utm_medium=qr&utm_campaign=miraiya-mogufloor&utm_content=yokkaichi-kita`;
             
             const getCouponBtn = document.getElementById('getCouponBtn');
             const emailInput = document.getElementById('email');
@@ -344,31 +331,6 @@
             const loadingSpinner = getCouponBtn.querySelector('.loading');
             const couponSection = document.getElementById('couponSection');
             
-            // ECサイトのURLを作成
-            let ecSiteFullUrl = new URL(ecSiteUrl);
-
-            // 全てのパラメータをそのまま引き継ぐ
-            urlParams.forEach((value, key) => {
-                ecSiteFullUrl.searchParams.set(key, value);
-            });
-
-            // href属性を設定
-            shopLink.href = ecSiteFullUrl.toString();
-
-            // クリックイベントリスナー
-            shopLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                console.log('Link Clicked');
-                console.log('Redirecting to:', ecSiteFullUrl.toString());
-                window.location.href = ecSiteFullUrl.toString();
-            });
-
-            // デバッグログを追加
-            console.log('Shop Link Element:', shopLink);
-            console.log('EC Site URL:', ecSiteUrl);
-            console.log('Current href:', shopLink.href);
-
-            // クーポン取得処理
             getCouponBtn.addEventListener('click', function() {
                 getCouponBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
@@ -395,6 +357,7 @@
                         
                         // クーポン取得後はボタンを完全に非表示
                         getCouponBtn.style.display = 'none';
+                        shopLink.href = `${ecSiteUrl}?advc=${advc}&utm_source=miraiya&utm_medium=qr&utm_campaign=miraiya-mogufloor&utm_content=yokkaichi-kita&coupon=${data.coupon_code}`;
                     }
                 })
                 .catch(error => {
@@ -403,11 +366,11 @@
                     getCouponBtn.disabled = false;
                 })
                 .finally(() => {
+                    getCouponBtn.disabled = false;
                     loadingSpinner.style.display = 'none';
                 });
             });
 
-            // メール送信処理
             document.getElementById('sendMailBtn').addEventListener('click', function() {
                 const email = emailInput.value.trim();
                 if (!email) {
@@ -415,10 +378,8 @@
                     return;
                 }
                 
-                // ボタンを無効化
                 this.disabled = true;
                 
-                // メール送信用のエンドポイントを使用
                 const mailApiUrl = 'https://coupon-service-912450795580.asia-northeast1.run.app/send_mail';
                 
                 fetch(mailApiUrl, {
@@ -438,7 +399,7 @@
                         emailError.textContent = data.error;
                     } else {
                         emailSuccess.textContent = 'メールを送信しました！';
-                        emailInput.value = ''; // 入力欄をクリア
+                        emailInput.value = '';
                     }
                 })
                 .catch(error => {
@@ -449,7 +410,6 @@
                 });
             });
 
-            // クーポンコードのコピー機能
             const couponCodeElement = document.getElementById('couponCode');
             const copyMessage = document.getElementById('copyMessage');
 
@@ -465,7 +425,6 @@
                 });
             });
 
-            // モーダル関連の処理（既存のコードを維持）
             var privacyModal = document.getElementById("privacyModal");
             var termsModal = document.getElementById("termsModal");
             var privacyLink = document.getElementById("privacyLink");
