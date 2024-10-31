@@ -331,8 +331,25 @@
             const loadingSpinner = getCouponBtn.querySelector('.loading');
             const couponSection = document.getElementById('couponSection');
             
+            // 現在のURLから全てのパラメータを取得
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // ECサイトのURLを作成
+            let ecSiteFullUrl = new URL(ecSiteUrl);
+
+            // 全てのパラメータをそのまま引き継ぐ
+            urlParams.forEach((value, key) => {
+                ecSiteFullUrl.searchParams.set(key, value);
+            });
+
             // href属性を設定
-            shopLink.href = ecSiteUrl;
+            shopLink.href = ecSiteFullUrl.toString();
+
+            shopLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Redirecting to:', ecSiteFullUrl.toString());
+                window.location.href = ecSiteFullUrl.toString();
+            });
 
             // デバッグログを追加
             console.log('Shop Link Element:', shopLink);
