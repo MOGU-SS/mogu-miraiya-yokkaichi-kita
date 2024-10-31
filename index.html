@@ -294,7 +294,7 @@
                 <li>クーポンコード使用履歴</li>
                 <li>QRコードスキャン情報</li>
             </ul>
-            <p>収集した情報は、キャンペーン効果の測定およびサービス改善のために使用します。</p>
+            <p>収集した情報は、キャンペーン効果の測���およびサービス改善のために使用します。</p>
         </div>
     </div>
 
@@ -331,9 +331,6 @@
             const loadingSpinner = getCouponBtn.querySelector('.loading');
             const couponSection = document.getElementById('couponSection');
             
-            // 現在のURLから全てのパラメータを取得
-            const urlParams = new URLSearchParams(window.location.search);
-
             // ECサイトのURLを作成
             let ecSiteFullUrl = new URL(ecSiteUrl);
 
@@ -345,8 +342,10 @@
             // href属性を設定
             shopLink.href = ecSiteFullUrl.toString();
 
+            // クリックイベントリスナー
             shopLink.addEventListener('click', function(e) {
                 e.preventDefault();
+                console.log('Link Clicked');
                 console.log('Redirecting to:', ecSiteFullUrl.toString());
                 window.location.href = ecSiteFullUrl.toString();
             });
@@ -355,15 +354,6 @@
             console.log('Shop Link Element:', shopLink);
             console.log('EC Site URL:', ecSiteUrl);
             console.log('Current href:', shopLink.href);
-
-            shopLink.addEventListener('click', function(e) {
-                e.preventDefault();  // デフォルトの動作を防止
-                console.log('Link Clicked');
-                console.log('Href value:', this.href);
-                
-                // リダイレクトを実行
-                window.location.href = ecSiteUrl;
-            });
 
             // クーポン取得処理
             getCouponBtn.addEventListener('click', function() {
