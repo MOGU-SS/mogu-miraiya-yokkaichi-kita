@@ -370,12 +370,6 @@
 
             // クーポン取得処理
             getCouponBtn.addEventListener('click', function() {
-                // すでにクーポンが表示されている場合は処理を中止
-                if (document.getElementById('couponCode').textContent) {
-                    emailError.textContent = 'すでにクーポンを取得済みです';
-                    return;
-                }
-
                 getCouponBtn.disabled = true;
                 loadingSpinner.style.display = 'inline-block';
                 
@@ -392,21 +386,21 @@
                 .then(data => {
                     if (data.error) {
                         emailError.textContent = data.error;
-                        getCouponBtn.disabled = false;  // エラー時のみボタンを再度有効化
+                        getCouponBtn.disabled = false;
                     } else {
                         document.getElementById('couponCode').textContent = data.coupon_code;
                         document.getElementById('expiryDate').textContent = `※有効期限：${data.expiry_date}まで`;
                         window.currentExpiryDate = data.expiry_date;
                         couponSection.style.display = 'block';
                         
-                        // クーポン取得後はボタンを非表示
+                        // クーポン取得後はボタンを完全に非表示
                         getCouponBtn.style.display = 'none';
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     emailError.textContent = 'システムエラーが発生しました。時間をおいて再度お試しください。';
-                    getCouponBtn.disabled = false;  // エラー時のみボタンを再度有効化
+                    getCouponBtn.disabled = false;
                 })
                 .finally(() => {
                     loadingSpinner.style.display = 'none';
